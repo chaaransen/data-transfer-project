@@ -80,6 +80,9 @@ include ':extensions:data-transfer:portability-data-transfer-koofr'
 // Backblaze
 include ':extensions:data-transfer:portability-data-transfer-backblaze'
 
+// ICPSR
+include ':extensions:auth:portability-auth-icpsr'
+
 include ':extensions:auth:portability-auth-offline-demo'
 include ':extensions:data-transfer:portability-data-transfer-offline-demo'
 
