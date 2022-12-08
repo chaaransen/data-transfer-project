@@ -37,7 +37,7 @@ public class ICPSRDataTransferClientFactory {
     this.icpsrDataTransferClientMap = new HashMap<>();
   }
 
-  public ICPSRDataTransferClient getOrCreateB2Client( UUID jobId,
+  public ICPSRDataTransferClient getOrCreateTransferClient( UUID jobId,
       TokenSecretAuthData authData)
       throws ICPSRCredentialsException, IOException {
     if (!icpsrDataTransferClientMap.containsKey(jobId)) {

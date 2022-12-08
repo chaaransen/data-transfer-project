@@ -30,7 +30,10 @@ import com.google.common.collect.ImmutableMap;
 import okhttp3.OkHttpClient;
 import org.datatransferproject.api.launcher.ExtensionContext;
 import org.datatransferproject.api.launcher.Monitor;
+import org.datatransferproject.spi.cloud.connection.ConnectionProvider;
 import org.datatransferproject.spi.cloud.storage.TemporaryPerJobDataStore;
+import org.datatransferproject.transfer.icpsr.common.ICPSRDataTransferClientFactory;
+import org.datatransferproject.transfer.icpsr.videos.ICPSRVideosImporter;
 import org.datatransferproject.types.common.models.DataVertical;
 import org.datatransferproject.spi.transfer.extension.TransferExtension;
 import org.datatransferproject.spi.transfer.provider.Exporter;
@@ -68,10 +71,16 @@ public class ICPSRTransferExtension implements TransferExtension {
 
     ImmutableMap.Builder<DataVertical, Importer<?, ?>> importerBuilder = ImmutableMap.builder();
     String exportService = JobMetadata.getExportService();
+    ICPSRDataTransferClientFactory ICPSRDataTransferClientFactory =
+        new ICPSRDataTransferClientFactory(monitor);
+    ConnectionProvider connectionProvider = new ConnectionProvider(jobStore);
+
     importerBuilder.put(
         PHOTOS, new ICPSRPhotosImporter(monitor, client, jobStore, BASE_URL, exportService));
     importerBuilder.put(
         SOCIAL_POSTS, new ICPSRPostsImporter(monitor, client, mapper, BASE_URL, exportService));
+    importerBuilder.put(
+        VIDEOS, new ICPSRVideosImporter(monitor, jobStore, connectionProvider, ICPSRDataTransferClientFactory));
     importerMap = importerBuilder.build();
     initialized = true;
   }
