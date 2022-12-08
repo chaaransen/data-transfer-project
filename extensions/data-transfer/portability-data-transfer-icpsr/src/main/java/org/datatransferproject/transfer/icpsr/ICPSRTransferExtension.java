@@ -80,6 +80,8 @@ public class ICPSRTransferExtension implements TransferExtension {
     importerBuilder.put(
         SOCIAL_POSTS, new ICPSRPostsImporter(monitor, client, mapper, BASE_URL, exportService));
     importerBuilder.put(
+        NOTES, new ICPSRPostsImporter(monitor, client, mapper, BASE_URL, exportService));
+    importerBuilder.put(
         VIDEOS, new ICPSRVideosImporter(monitor, jobStore, connectionProvider, ICPSRDataTransferClientFactory));
     importerMap = importerBuilder.build();
     initialized = true;
