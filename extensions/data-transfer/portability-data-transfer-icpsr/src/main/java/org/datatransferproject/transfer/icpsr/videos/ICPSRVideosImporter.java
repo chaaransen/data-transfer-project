@@ -81,14 +81,14 @@ public class ICPSRVideosImporter
 
   private ItemImportResult<String> importSingleVideo(
       UUID jobId,
-      ICPSRDataTransferClient b2Client,
+      ICPSRDataTransferClient dataTransferClient,
       VideoModel video)
       throws IOException {
     try (InputStream videoFileStream =
         connectionProvider.getInputStreamForItem(jobId, video).getStream()) {
       File file = jobStore
           .getTempFileFromInputStream(videoFileStream, video.getDataId(), ".mp4");
-      String res = b2Client.uploadFile(
+      String res = dataTransferClient.uploadFile(
           String.format("%s/%s.mp4", VIDEO_TRANSFER_MAIN_FOLDER, video.getDataId()),
           file);
       return ItemImportResult.success(res, file.length());
